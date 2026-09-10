@@ -1,0 +1,23 @@
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Node (in case tooling is added later)
+node_modules/
+npm-debug.log*
+yarn-error.log*
+
+# Local env files
+.env
+.env.local
+
+# Build output (if a bundler is added later)
+dist/
+build/

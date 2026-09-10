@@ -1,0 +1,962 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LUMEN — The Theater of Light</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;800&family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@300;400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div id="cursor"></div>
+    <canvas id="audio_canvas"></canvas>
+
+    <!-- AUDIO ELEMENTS -->
+    <audio id="audio_ambient" loop preload="auto" crossorigin="anonymous">
+      <source src="assets/audio/ambient_drone.wav" type="audio/wav" />
+    </audio>
+    <audio id="audio_voice_hero" preload="auto">
+      <source src="assets/audio/voice_hero.mp3" type="audio/mpeg" />
+    </audio>
+    <audio id="audio_voice_manifesto" preload="auto">
+      <source src="assets/audio/voice_manifesto.mp3" type="audio/mpeg" />
+    </audio>
+    <audio id="ui_hover_audio" preload="auto">
+      <source src="assets/audio/ui_hover.wav" type="audio/wav" />
+    </audio>
+    <audio id="ui_click_audio" preload="auto">
+      <source src="assets/audio/ui_click.wav" type="audio/wav" />
+    </audio>
+    <audio id="ui_open_audio" preload="auto">
+      <source src="assets/audio/ui_open.wav" type="audio/wav" />
+    </audio>
+
+    <!-- Loader -->
+    <div id="loader">
+      <div id="loader_video">
+        <video autoplay muted loop playsinline>
+          <source src="assets/video/hero.mp4" type="video/mp4" />
+        </video>
+      </div>
+      <div id="loader_visual"><div class="dot-circle"></div></div>
+      <div id="loader_top">
+        <div class="mono">LUMEN — 2026 // LIGHT FIELD LOADING</div>
+        <div class="mono">EST. PHOTONIC ARCHITECTURE</div>
+      </div>
+      <div id="loader_percent">
+        <span>0<i>%</i></span>
+        <div id="loader_bar"></div>
+      </div>
+      <div id="loader_bottom">
+        <div
+          class="mono"
+          style="max-width: 28rem; line-height: 1.5; opacity: 0.6"
+        >
+          Initializing lumin engine — decoding photon field — calibrating dome.
+          Real video background + spatial audio ready. Remain in darkness.
+        </div>
+        <button id="loader_skip" class="mono">SKIP — ENTER [SPACE]</button>
+      </div>
+    </div>
+
+    <header>
+      <a href="#" id="logo"><b>L</b> LUMEN</a>
+      <div id="header_center">
+        <button id="sound_toggle">
+          <span class="dot"></span>
+          <span id="sound_bars"
+            ><span></span><span></span><span></span><span></span
+          ></span>
+          SOUND <span id="sound_state">ON</span>
+        </button>
+        <button id="ham" aria-label="menu"><span></span><span></span></button>
+      </div>
+    </header>
+
+    <div id="menu">
+      <div id="menu_left">
+        <a class="menu_link active" href="#hero"
+          ><i>01</i> Vision
+          <img
+            src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?q=80&w=200&auto=format&fit=crop"
+            alt=""
+        /></a>
+        <a class="menu_link" href="#system"
+          ><i>02</i> Technology
+          <img
+            src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=200&auto=format&fit=crop"
+            alt=""
+        /></a>
+        <a class="menu_link" href="#realms"
+          ><i>03</i> Realms
+          <img
+            src="https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?q=80&w=200&auto=format&fit=crop"
+            alt=""
+        /></a>
+        <a class="menu_link" href="#crafted"
+          ><i>04</i> Crafted
+          <img
+            src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=200&auto=format&fit=crop"
+            alt=""
+        /></a>
+        <a class="menu_link" href="#collective"
+          ><i>05</i> Collective
+          <img
+            src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=200&auto=format&fit=crop"
+            alt=""
+        /></a>
+        <a class="menu_link" href="#dispatches"
+          ><i>06</i> Dispatches
+          <img
+            src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?q=80&w=200&auto=format&fit=crop"
+            alt=""
+        /></a>
+      </div>
+      <div id="menu_right">
+        <div class="big serif">
+          Light is not illumination.<br />It is
+          <i style="color: var(--accent)">architecture</i>.
+        </div>
+        <div>
+          <div class="mono" style="opacity: 0.5; margin-bottom: 1rem">
+            Contact — Spatial Audio On
+          </div>
+          <div style="line-height: 1.6">
+            Seoul — Berlin — Dubai<br />#<br />+82 0 000 0000
+          </div>
+          <div
+            class="marquee"
+            style="
+              margin-top: 2rem;
+              border: 1px solid var(--line);
+              border-radius: 100px;
+            "
+          >
+            <div class="marquee_inner" style="animation-duration: 18s">
+              <div class="marquee_item">
+                <span class="ico">↗</span> REQUEST ACCESS
+              </div>
+              <div class="marquee_item">
+                <span class="ico">↗</span> REQUEST ACCESS
+              </div>
+              <div class="marquee_item">
+                <span class="ico">↗</span> REQUEST ACCESS
+              </div>
+              <div class="marquee_item">
+                <span class="ico">↗</span> REQUEST ACCESS
+              </div>
+              <div class="marquee_item">
+                <span class="ico">↗</span> REQUEST ACCESS
+              </div>
+              <div class="marquee_item">
+                <span class="ico">↗</span> REQUEST ACCESS
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="marquee" id="top_marquee">
+      <div class="marquee_inner">
+        <div class="marquee_item">
+          <span class="ico">●</span> CONTACT US — HELLO@LUMEN.THEATER
+        </div>
+        <div class="marquee_item">
+          <span class="ico">●</span> CONTACT US — HELLO@LUMEN.THEATER
+        </div>
+        <div class="marquee_item">
+          <span class="ico">●</span> CONTACT US — HELLO@LUMEN.THEATER
+        </div>
+        <div class="marquee_item">
+          <span class="ico">●</span> CONTACT US — HELLO@LUMEN.THEATER
+        </div>
+        <div class="marquee_item">
+          <span class="ico">●</span> CONTACT US — HELLO@LUMEN.THEATER
+        </div>
+        <div class="marquee_item">
+          <span class="ico">●</span> CONTACT US — HELLO@LUMEN.THEATER
+        </div>
+        <div class="marquee_item">
+          <span class="ico">●</span> CONTACT US — HELLO@LUMEN.THEATER
+        </div>
+        <div class="marquee_item">
+          <span class="ico">●</span> CONTACT US — HELLO@LUMEN.THEATER
+        </div>
+        <div class="marquee_item">
+          <span class="ico">●</span> CONTACT US — HELLO@LUMEN.THEATER
+        </div>
+        <div class="marquee_item">
+          <span class="ico">●</span> CONTACT US — HELLO@LUMEN.THEATER
+        </div>
+      </div>
+    </div>
+
+    <main>
+      <section id="hero">
+        <div id="hero_bg">
+          <video
+            id="hero_video"
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="auto"
+            poster="https://images.unsplash.com/photo-1519608487953-e999c86e7455?q=80&w=2000&auto=format&fit=crop"
+          >
+            <source src="assets/video/hero.mp4" type="video/mp4" />
+          </video>
+          <img
+            class="fallback"
+            src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?q=80&w=2000&auto=format&fit=crop"
+            alt=""
+            style="display: none"
+          />
+        </div>
+        <div id="hero_grain"></div>
+        <div id="hero_dot"><div id="hero_dot_inner"></div></div>
+        <h1 class="reveal">
+          Darkness is not empty.<br />We sculpt with <i>light.</i>
+        </h1>
+        <div class="reveal reveal_delay" id="hero_sub">
+          LUMEN — A THEATER OF LIGHT 
+        </div>
+      </section>
+
+      <section class="section" id="vision">
+        <div class="label reveal">
+          <div class="icon">◐</div>
+          <span>Vision</span>
+        </div>
+        <h2 class="sec_title reveal">
+          Countless ways<br />of <i>seeing</i><br />exist in this world.
+        </h2>
+        <p class="sec_desc reveal reveal_delay">
+          LUMEN redefines the cultural space — not as a container, but as a
+          living optical instrument. Video is the architecture.
+        </p>
+        <div class="vision_rows">
+          <div class="vision_row">
+            <div class="vision_text reveal">
+              <div class="mono" style="opacity: 0.5; margin-bottom: 0.8rem">
+                01 / Illumination — VIDEO FIELD
+              </div>
+              <h3>A Space for<br />Illumination</h3>
+              <p
+                style="
+                  color: var(--muted);
+                  line-height: 1.6;
+                  font-size: 0.95rem;
+                "
+              >
+                Where light itself becomes the exhibit. Real volumetric video
+                captured at 16K inside our dome.
+              </p>
+            </div>
+            <div class="vision_media">
+              <div class="vision_media_track" data-speed="0.8">
+                <video autoplay muted loop playsinline>
+                  <source src="assets/video/hero.mp4" type="video/mp4" />
+                </video>
+                <img
+                  src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=800&auto=format&fit=crop"
+                  alt=""
+                />
+                <img
+                  src="https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?q=80&w=800&auto=format&fit=crop"
+                  alt=""
+                />
+                <video autoplay muted loop playsinline>
+                  <source src="assets/video/ambient.mp4" type="video/mp4" />
+                </video>
+              </div>
+            </div>
+          </div>
+          <div class="vision_row">
+            <div class="vision_text reveal">
+              <div class="mono" style="opacity: 0.5; margin-bottom: 0.8rem">
+                02 / Resonance — LIVE VIDEO
+              </div>
+              <h3>A Space for<br />Resonance</h3>
+              <p
+                style="
+                  color: var(--muted);
+                  line-height: 1.6;
+                  font-size: 0.95rem;
+                "
+              >
+                Sound and light entwined. A concert where every frequency paints
+                the dome in real video.
+              </p>
+            </div>
+            <div class="vision_media">
+              <div class="vision_media_track" data-speed="1.2">
+                <video autoplay muted loop playsinline>
+                  <source src="assets/video/ambient.mp4" type="video/mp4" />
+                </video>
+                <img
+                  src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=800&auto=format&fit=crop"
+                  alt=""
+                />
+                <img
+                  src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=800&auto=format&fit=crop"
+                  alt=""
+                />
+                <video autoplay muted loop playsinline>
+                  <source src="assets/video/hero.mp4" type="video/mp4" />
+                </video>
+              </div>
+            </div>
+          </div>
+          <div class="vision_row">
+            <div class="vision_text reveal">
+              <div class="mono" style="opacity: 0.5; margin-bottom: 0.8rem">
+                03 / Immersion — DOME VIDEO
+              </div>
+              <h3>A Space for<br />Immersion</h3>
+              <p
+                style="
+                  color: var(--muted);
+                  line-height: 1.6;
+                  font-size: 0.95rem;
+                "
+              >
+                Stepping inside the image. Narrative without frame, story
+                without border — 270° video.
+              </p>
+            </div>
+            <div class="vision_media">
+              <div class="vision_media_track" data-speed="0.6">
+                <video autoplay muted loop playsinline>
+                  <source src="assets/video/hero.mp4" type="video/mp4" />
+                </video>
+                <img
+                  src="https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=800&auto=format&fit=crop"
+                  alt=""
+                />
+                <video autoplay muted loop playsinline>
+                  <source src="assets/video/ambient.mp4" type="video/mp4" />
+                </video>
+                <img
+                  src="https://images.unsplash.com/photo-1446776877081-d282a0f896e2?q=80&w=800&auto=format&fit=crop"
+                  alt=""
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="beyond">
+        <div id="beyond_inner">
+          <h2 class="reveal">
+            LUMEN<br />Exists<br />Beyond<br /><i
+              class="serif"
+              style="font-weight: 400"
+              >Perception</i
+            >
+          </h2>
+          <div class="reveal reveal_delay">
+            <p>
+              Real video captured inside our 32m dome — no CGI. Inspired by the
+              behavior of light, this multi-sensory complex is an experiential
+              instrument designed to take your senses beyond the ordinary
+              spectrum.
+            </p>
+            <a href="#" class="request_btn open_film"
+              ><span class="mono">REQUEST FULL FILM [4K VIDEO]</span
+              ><span class="ico">▶</span></a
+            >
+          </div>
+        </div>
+        <div class="marquee" style="margin-top: 4vw; background: transparent">
+          <div class="marquee_inner reverse" style="animation-duration: 22s">
+            <div class="marquee_item">
+              <span class="ico">▶</span> REAL VIDEO BACKGROUND — 16K DOME
+              CAPTURE
+            </div>
+            <div class="marquee_item">
+              <span class="ico">▶</span> REAL VIDEO BACKGROUND — 16K DOME
+              CAPTURE
+            </div>
+            <div class="marquee_item">
+              <span class="ico">▶</span> REAL VIDEO BACKGROUND — 16K DOME
+              CAPTURE
+            </div>
+            <div class="marquee_item">
+              <span class="ico">▶</span> REAL VIDEO BACKGROUND — 16K DOME
+              CAPTURE
+            </div>
+            <div class="marquee_item">
+              <span class="ico">▶</span> REAL VIDEO BACKGROUND — 16K DOME
+              CAPTURE
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div id="color_line">
+        <div style="background: #ff3b30"></div>
+        <div style="background: #ff7a00"></div>
+        <div style="background: #ffcc00"></div>
+        <div style="background: #e8ff57"></div>
+        <div style="background: #34c759"></div>
+        <div style="background: #00c7be"></div>
+        <div style="background: #007aff"></div>
+        <div style="background: #5856d6"></div>
+        <div style="background: #af52de"></div>
+        <div style="background: #ff2d55"></div>
+        <div style="background: #ff9f0a"></div>
+        <div style="background: #32d74b"></div>
+        <div style="background: #5ac8fa"></div>
+        <div style="background: #bf5af2"></div>
+      </div>
+
+      <section id="manifesto">
+        <h2 class="reveal">
+          Each observer, a <i>prism</i>.<br />Each moment, a
+          <i>spectrum</i>.<br /><br /><span
+            style="
+              font-size: 0.9rem;
+              font-family: &quot;Geist Mono&quot;;
+              letter-spacing: 0.15em;
+              opacity: 0.5;
+              display: block;
+              max-width: 36rem;
+              margin: 1rem auto 0;
+              line-height: 1.6;
+              text-transform: none;
+            "
+            >Diverse perceptions are connected, refracted and expanded into
+            something greater. LUMEN, where photon and emotion converge, evolves
+            over time to create a living optical universe.</span
+          >
+        </h2>
+        <p class="reveal reveal_delay" style="margin-top: 3rem">
+          Where technology, art, and human presence interfere, LUMEN sets a new
+          standard for cultural platforms.
+        </p>
+        <button
+          id="play_manifesto"
+          class="request_btn"
+          style="margin: 2rem auto"
+        >
+          <span class="mono">PLAY MANIFESTO VOICEOVER</span
+          ><span class="ico">♪</span>
+        </button>
+      </section>
+
+      <section id="planets">
+        <div id="planets_sticky">
+          <div id="planets_bg">
+            <video class="active" autoplay muted loop playsinline>
+              <source src="assets/video/ambient.mp4" type="video/mp4" />
+            </video>
+            <video autoplay muted loop playsinline>
+              <source src="assets/video/hero.mp4" type="video/mp4" />
+            </video>
+            <img
+              src="https://images.unsplash.com/photo-1446776877081-d282a0f896e2?q=80&w=2000&auto=format&fit=crop"
+              alt=""
+            />
+          </div>
+          <div id="planets_center">
+            <div id="planet_orb"><div id="planet_ring"></div></div>
+            <div id="planets_text">
+              <h3 class="serif"><i>Light has memory. Video is its body.</i></h3>
+              <div class="mono" style="opacity: 0.5; margin-top: 0.6rem">
+                SCROLL TO REFRACT — VIDEO REACTIVE
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="dome_gallery">
+        <div class="dome_item">
+          <video class="parallax" autoplay muted loop playsinline>
+            <source src="assets/video/hero.mp4" type="video/mp4" />
+          </video>
+          <div class="dome_item_content">
+            <h4>Refraction<br />Chamber 01 — VIDEO</h4>
+            <p>
+              A 270° photonic field where walls dissolve into real video. Every
+              surface is a source. Captured at 16K.
+            </p>
+          </div>
+        </div>
+        <div class="dome_item">
+          <video class="parallax" autoplay muted loop playsinline>
+            <source src="assets/video/ambient.mp4" type="video/mp4" />
+          </video>
+          <div class="dome_item_content">
+            <h4>Resonance<br />Chamber 02 — VIDEO</h4>
+            <p>
+              Object-based audio and volumetric light tracking — sound you can
+              see, light you can hear. Video-reactive.
+            </p>
+          </div>
+        </div>
+        <div class="dome_item">
+          <video class="parallax" autoplay muted loop playsinline>
+            <source src="assets/video/hero.mp4" type="video/mp4" />
+          </video>
+          <div class="dome_item_content">
+            <h4>Void<br />Chamber 03 — VIDEO</h4>
+            <p>
+              Absolute darkness as canvas. One photon at a time, we rebuild
+              reality with video.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="system">
+        <div id="system_left">
+          <div class="label">
+            <div class="icon">◍</div>
+            <span>Technology — VIDEO ENGINE</span>
+          </div>
+          <h2>
+            A next-gen<br />photonic<br />platform<br /><i class="serif"
+              >powered by<br />video + light</i
+            >
+          </h2>
+          <p>
+            Built on proprietary optical engineering, LUMEN integrates kinetic
+            LED dome, adaptive haptics, spatial photonics, and a real-time video
+            lumin engine. All video backgrounds are real captures, not renders.
+          </p>
+        </div>
+        <div id="system_slider">
+          <div id="system_track">
+            <div class="system_slide">
+              <video autoplay muted loop playsinline>
+                <source src="assets/video/hero.mp4" type="video/mp4" />
+              </video>
+              <h4>Kinetic Light Dome — 16K Video</h4>
+              <p>
+                Modular architecture from 18m / 180 seats to 38m / 1200 seats.
+                16K resolution, 12000 nits peak, seamless curvature with real
+                video mapping.
+              </p>
+            </div>
+            <div class="system_slide">
+              <video autoplay muted loop playsinline>
+                <source src="assets/video/ambient.mp4" type="video/mp4" />
+              </video>
+              <h4>Responsive Seating Matrix — Haptic + Audio</h4>
+              <p>
+                Electro-active polymer seating that reconfigures at 60Hz with
+                video-synced haptics. Self-sanitizing, bio-fabric.
+              </p>
+            </div>
+            <div class="system_slide">
+              <video autoplay muted loop playsinline>
+                <source src="assets/video/hero.mp4" type="video/mp4" />
+              </video>
+              <h4>Lumin Engine — Real-Time Video</h4>
+              <p>
+                Real-time photon path tracing, interactive generative video, and
+                centralized show control for light, sound, scent, and motion.
+              </p>
+            </div>
+            <div class="system_slide">
+              <video autoplay muted loop playsinline>
+                <source src="assets/video/ambient.mp4" type="video/mp4" />
+              </video>
+              <h4>Holophonic Audio — Spatial</h4>
+              <p>
+                360° wave field synthesis with video-reactive EQ — delivering
+                personalized audio zones without headphones.
+              </p>
+            </div>
+          </div>
+          <div id="system_nav">
+            <button id="sys_prev">←</button><button id="sys_next">→</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="realms">
+        <div id="realms_header">
+          <div>
+            <div class="label">
+              <div class="icon">◎</div>
+              <span>Realms — VIDEO MODES</span>
+            </div>
+            <h2 class="reveal">
+              A space in<br />perpetual<br /><i class="serif">motion.</i><br />A
+              business<br />without<br />horizon.
+            </h2>
+            <p class="sec_desc reveal">
+              A shape-shifting platform — each realm is a different real video
+              environment captured in dome.
+            </p>
+            <div id="realms_tabs">
+              <button class="realm_tab active" data-i="0">
+                01 CELESTIAL VIDEO
+              </button>
+              <button class="realm_tab" data-i="1">02 PULSE VIDEO</button>
+              <button class="realm_tab" data-i="2">03 CANVAS VIDEO</button>
+              <button class="realm_tab" data-i="3">04 ARENA VIDEO</button>
+              <button class="realm_tab" data-i="4">05 ATELIER VIDEO</button>
+            </div>
+          </div>
+          <div
+            class="mono"
+            style="opacity: 0.4; max-width: 18rem; line-height: 1.5"
+          >
+            Select a realm to preview transformation. Real video backgrounds
+            with spatial audio.
+          </div>
+        </div>
+        <div id="realms_stage">
+          <video class="active" autoplay muted loop playsinline>
+            <source src="assets/video/ambient.mp4" type="video/mp4" />
+          </video>
+          <video autoplay muted loop playsinline>
+            <source src="assets/video/hero.mp4" type="video/mp4" />
+          </video>
+          <video autoplay muted loop playsinline>
+            <source src="assets/video/ambient.mp4" type="video/mp4" />
+          </video>
+          <video autoplay muted loop playsinline>
+            <source src="assets/video/hero.mp4" type="video/mp4" />
+          </video>
+          <video autoplay muted loop playsinline>
+            <source src="assets/video/ambient.mp4" type="video/mp4" />
+          </video>
+          <div id="realms_info">
+            <h4>Celestial — Real Dome Video</h4>
+            <p>
+              A fully realized cosmos displayed inside a luminous dome — real
+              16K video capture, no CGI.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="crafted">
+        <div class="label">
+          <div class="icon">⬙</div>
+          <span>Crafted By</span>
+        </div>
+        <h2 class="sec_title">Project Led by<br /><i>visionaries</i></h2>
+        <div class="crafted_grid">
+          <div class="crafted_card reveal">
+            <img
+              src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=800&auto=format&fit=crop"
+              alt=""
+            />
+            <div class="crafted_card_body">
+              <h4>Atelier Noir</h4>
+              <p>
+                Photonic architecture, XR rituals, and large-scale light
+                sculptures. Building next-gen cultural platforms.
+              </p>
+            </div>
+          </div>
+          <div class="crafted_card reveal reveal_delay">
+            <img
+              src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=800&auto=format&fit=crop"
+              alt=""
+            />
+            <div class="crafted_card_body">
+              <h4>Flux Labs</h4>
+              <p>
+                Engineers of kinetic systems and smart media infrastructure.
+                Advanced light + video technologies.
+              </p>
+            </div>
+          </div>
+          <div class="crafted_card reveal reveal_delay2">
+            <img
+              src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?q=80&w=800&auto=format&fit=crop"
+              alt=""
+            />
+            <div class="crafted_card_body">
+              <h4>Prism Works</h4>
+              <p>
+                High-density LED and holographic façades. Transforming every
+                surface into dynamic video canvas.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="collective">
+        <div class="label">
+          <div class="icon">◈</div>
+          <span>Collective</span>
+        </div>
+        <h2 class="sec_title">Global Network</h2>
+        <div class="collective_group">
+          <h3>DOMESTIC PARTNERS</h3>
+          <div class="collective_logos">
+            <div class="collective_card">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg"
+                alt=""
+              />
+              <h4>NOVA</h4>
+              <p>
+                Entertainment tech platform providing all-in-one digital venue
+                OS.
+              </p>
+            </div>
+            <div class="collective_card">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg"
+                alt=""
+              />
+              <h4>AICRON</h4>
+              <p>AI content creation platform integrating 200+ models.</p>
+            </div>
+            <div class="collective_card">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg"
+                alt=""
+              />
+              <h4>Soundmirror</h4>
+              <p>
+                Spatial audio design studio led by Grammy-winning engineers.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="collective_group">
+          <h3>EUROPE & MIDDLE EAST PARTNERS</h3>
+          <div class="collective_logos">
+            <div class="collective_card">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg"
+                alt=""
+              />
+              <h4>Arco Group</h4>
+              <p>
+                Dubai-based engineering delivering large-scale development
+                projects.
+              </p>
+            </div>
+            <div class="collective_card">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg"
+                alt=""
+              />
+              <h4>Apexls</h4>
+              <p>
+                Advanced LED display technology for dynamic large-scale media.
+              </p>
+            </div>
+            <div class="collective_card">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/b/b9/Slack_Technologies_Logo.svg"
+                alt=""
+              />
+              <h4>Brogent</h4>
+              <p>
+                Global pioneer in immersive attractions and flying theater
+                systems.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="dispatches">
+        <div class="label">
+          <div class="icon">✦</div>
+          <span>Dispatches — VIDEO JOURNAL</span>
+        </div>
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            flex-wrap: wrap;
+            gap: 1rem;
+          "
+        >
+          <h2 class="sec_title">Updates</h2>
+          <div class="mono" style="opacity: 0.5">
+            DRAG TO EXPLORE — VIDEO PREVIEWS →
+          </div>
+        </div>
+        <div id="news_track">
+          <div class="news_card">
+            <img
+              src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?q=80&w=800&auto=format&fit=crop"
+              alt=""
+            />
+            <div class="news_card_body">
+              <div class="meta"><span>PRESS</span><span>2026-04-01</span></div>
+              <h4>
+                LUMEN to Launch Ultra-High-Resolution Dome in Seongsu — Real
+                Video Debut
+              </h4>
+            </div>
+          </div>
+          <div class="news_card">
+            <img
+              src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=800&auto=format&fit=crop"
+              alt=""
+            />
+            <div class="news_card_body">
+              <div class="meta"><span>PRESS</span><span>2026-02-19</span></div>
+              <h4>
+                Atelier Noir and NOVA Sign MOU — New Video Content Pipeline
+              </h4>
+            </div>
+          </div>
+          <div class="news_card">
+            <img
+              src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=800&auto=format&fit=crop"
+              alt=""
+            />
+            <div class="news_card_body">
+              <div class="meta"><span>PRESS</span><span>2026-02-13</span></div>
+              <h4>
+                LUMEN Partners Expand Photonic Performance Ecosystem with Video
+              </h4>
+            </div>
+          </div>
+          <div class="news_card">
+            <img
+              src="https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?q=80&w=2000&auto=format&fit=crop"
+              alt=""
+            />
+            <div class="news_card_body">
+              <div class="meta"><span>PRESS</span><span>2025-06-17</span></div>
+              <h4>
+                Next-Generation Dome Brand LUMEN Launches : Beyond Sphere with
+                Real Video
+              </h4>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div
+        class="marquee"
+        style="
+          background: var(--accent);
+          color: black;
+          border-color: var(--accent);
+        "
+      >
+        <div class="marquee_inner" style="animation-duration: 18s">
+          <div class="marquee_item">
+            <span class="ico" style="background: black; color: var(--accent)"
+              >↗</span
+            >
+            REAL VIDEO + SPATIAL AUDIO — CONTACT US
+          </div>
+          <div class="marquee_item">
+            <span class="ico" style="background: black; color: var(--accent)"
+              >↗</span
+            >
+            REAL VIDEO + SPATIAL AUDIO — CONTACT US
+          </div>
+          <div class="marquee_item">
+            <span class="ico" style="background: black; color: var(--accent)"
+              >↗</span
+            >
+            REAL VIDEO + SPATIAL AUDIO — CONTACT US
+          </div>
+          <div class="marquee_item">
+            <span class="ico" style="background: black; color: var(--accent)"
+              >↗</span
+            >
+            REAL VIDEO + SPATIAL AUDIO — CONTACT US
+          </div>
+          <div class="marquee_item">
+            <span class="ico" style="background: black; color: var(--accent)"
+              >↗</span
+            >
+            REAL VIDEO + SPATIAL AUDIO — CONTACT US
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <div id="footer_top">
+        <h2>
+          Light is<br />never<br />neutral.<br /><i
+            class="serif"
+            style="font-weight: 400; font-size: 0.6em"
+            >Video is its proof.</i
+          >
+        </h2>
+        <div>
+          <div class="mono" style="opacity: 0.5; margin-bottom: 1rem">
+            LUMEN — THE THEATER OF LIGHT — REAL VIDEO + SPATIAL AUDIO
+          </div>
+          <p style="max-width: 26rem; line-height: 1.6; color: var(--muted)">
+            We design universes from photons and real video. Private demos with
+            spatial audio available in Seoul, Berlin, Dubai. All video
+            backgrounds are real dome captures.
+          </p>
+          <a href="#" class="request_btn open_film" style="margin-top: 1.5rem"
+            ><span class="mono">REQUEST FULL FILM [4K + AUDIO]</span
+            ><span class="ico">▶</span></a
+          >
+        </div>
+      </div>
+      <div id="footer_bottom">
+        <div>
+          © 2026 LUMEN THEATER. REAL VIDEO + SPATIAL AUDIO. BUILT WITH LIGHT.
+        </div>
+        <div>SEOUL / BERLIN / DUBAI — VIDEO: 16K / AUDIO: 360° SPATIAL</div>
+      </div>
+    </footer>
+
+    <div id="film_modal">
+      <div id="film_modal_box">
+        <button id="film_close">✕</button>
+        <h3>Request Full Film — 4K Video + Spatial Audio</h3>
+        <p>
+          Share your details to receive the full LUMEN project film (4K video +
+          360° audio mix) and technical deck. Private link valid 72 hours.
+          Includes real dome video samples.
+        </p>
+        <input placeholder="Full Name" />
+        <input placeholder="Company / Studio" />
+        <input placeholder="Email Address" />
+        <button
+          class="request_btn"
+          style="
+            width: 100%;
+            justify-content: center;
+            background: white;
+            color: black;
+            border-color: white;
+            margin-top: 0.5rem;
+          "
+        >
+          <span class="mono">SEND REQUEST — VIDEO + AUDIO</span
+          ><span class="ico">↗</span>
+        </button>
+        <div
+          class="mono"
+          style="
+            opacity: 0.4;
+            margin-top: 1rem;
+            font-size: 0.65rem;
+            text-align: center;
+          "
+        >
+          Real video. Spatial audio. No spam, only light.
+        </div>
+      </div>
+    </div>
+
+    <script src="js/main.js" defer></script>
+  </body>
+</html>
